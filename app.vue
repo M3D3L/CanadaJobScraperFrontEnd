@@ -1,6 +1,6 @@
 <template>
     <MetaData />
-    <BaseHeader ref="header" @search-results="updateSearch($event)" @reset="resetResults()" />
+    <BaseHeader @search-results="updateSearch($event)" @reset="resetResults()" />
     <JobList :jobs="jobs" />
     <BaseFooter v-if="footer && jobs.length > 4" :date="date" />
 </template>
@@ -41,11 +41,6 @@ body {
 
 button {
   @apply text-sm md:bg-red-500 group-hover:translate-y-[-0.5rem] transition-all duration-150 ease-in-out w-40 mx-auto font-bold text-coolgray-500 md:text-white md:shadow-md md:shadow-coolgray-500 mt-2 py-2 rounded-full;
-}
-
-.header-opacity-100 {
-  @apply opacity-100 h-[5rem];
-  transition: opacity 0.2s;
 }
 </style>
 

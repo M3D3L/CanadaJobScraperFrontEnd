@@ -1,6 +1,6 @@
 <template>
     <header
-      class="fixed top-0 flex w-full justify-between bg-gray-900 px-8 text-xl text-white py-6 z-50 opacity-20"
+      class="fixed top-0 flex w-full justify-between bg-gray-900 px-8 text-xl text-white py-6 z-50 opacity-20 header-opacity-100"
     >
       <a href="/">
         <span class="text-4xl top-4 absolute">🍁</span>
@@ -42,3 +42,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.header-opacity-100 {
+  @apply opacity-100 h-[5rem];
+  transition: opacity 0.2s;
+}
+</style>
