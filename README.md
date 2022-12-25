@@ -4,7 +4,7 @@
 
 <h2>Live Version</h2>
 
-<a href="https://63a8b7f930e20c0a8ee2e308--effortless-peony-c18854.netlify.app/" target="_blank">View Live Version</a>
+<a href="https://gregarious-marshmallow-f9324b.netlify.app/" target="_blank">View Live Version</a>
 
 <h2>Requirements</h2>
 
