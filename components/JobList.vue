@@ -1,5 +1,5 @@
 <template>
-  <ul class="fade-in">
+  <ul class="fade-in pb-10">
     <li v-for="(job, i) in jobs" class="group" :key="job.id">
       <a class="w-full h-full overflow-hidden" :href="job.jobUrl" target="_blank">
         <div class="absolute bottom-4">

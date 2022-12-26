@@ -1,8 +1,8 @@
 <template>
     <MetaData />
-    <BaseHeader @search-results="updateSearch($event)" @reset="resetResults()" />
+    <BaseHeader ref="header" @search-results="updateSearch($event)" @reset="resetResults()" />
     <JobList :jobs="jobs" />
-    <BaseFooter v-if="footer && jobs.length > 4" :date="date" />
+    <BaseFooter :date="date" />
 </template>
 
 <style lang="css">
@@ -42,6 +42,7 @@ body {
 button {
   @apply text-sm md:bg-red-500 group-hover:translate-y-[-0.5rem] transition-all duration-150 ease-in-out w-40 mx-auto font-bold text-coolgray-500 md:text-white md:shadow-md md:shadow-coolgray-500 mt-2 py-2 rounded-full;
 }
+
 </style>
 
 <script>
@@ -60,7 +61,6 @@ export default {
     return {
       jobs: [],
       search: "",
-      backup: [],
       date: new Date().getFullYear(),
       footer: false
     };
@@ -69,8 +69,6 @@ export default {
     this.getData();
   },
   mounted() {
-    //set the backup array to the jobs array for filtering and resetting our results
-    this.backup = this.jobs;
 
     //set the intersection observers for the fade in animation
     this.setIntersectionObservers();
@@ -114,7 +112,6 @@ export default {
       }
     },
     setIntersectionObservers() {
-      this.footer = false;
       const fadeIn = (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -134,20 +131,20 @@ export default {
           observer.observe(element);
         }
       });
-      this.footer = true;
     },
     resetResults() {
       this.search = "";
-      this.jobs = this.backup;
+      //get the original data
+      this.jobs = jobsList;
       setTimeout(() => {
         this.setIntersectionObservers();
       }, 1000);
       setTimeout(() => {
         this.scrollToTop();
-      }, 1500);
+      }, 1250);
     },
     searchResults() {
-      this.jobs = this.backup.filter((job) => {
+      this.jobs = jobsList.filter((job) => {
         return (
           job.jobTitle.toLowerCase().includes(this.search.toLowerCase()) ||
           job.business.toLowerCase().includes(this.search.toLowerCase()) ||
