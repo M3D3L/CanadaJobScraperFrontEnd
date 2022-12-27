@@ -1,5 +1,10 @@
 <template>
-  <ul class="fade-in">
+  <!-- No Results -->
+  <div v-if="totalPages == 0" class="top-0 grid content-center left-0 fixed w-full min-h-full">
+    <span class="text-3xl md:text-5xl text-center text-black">Sorry there were no results</span>
+  </div>
+
+  <ul v-if="totalPages != 0" class="fade-in">
     <!-- Job List -->
     <li
       v-for="(job, i) in jobs.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
@@ -38,23 +43,30 @@
   </ul>
 
   <!-- Pagination Controls -->
-  <div class="w-full bottom-12 bg-white bg-opacity-50 fixed md:relative">
-    <div class="w-full max-w-sm md:max-w-full overflow-hidden fade-in-element pb-2 flex text-center mx-auto justify-center">
-    <button class="max-w-[5rem] float-on-hover " 
-    v-if="totalPages != 1 && totalPages != 0" 
-    @click="prevPage">Prev</button>
-    <span class="mt-4" v-if="totalPages != 0">Page {{ currentPage }} of {{ totalPages }}</span>
-    <button class="max-w-[5rem] float-on-hover" 
-    v-if="totalPages != 1 && totalPages != 0" 
-    @click="nextPage()"
+  <div
+    v-if="totalPages != 0"
+    class="w-full bottom-12 bg-white bg-opacity-50 fixed md:relative"
+  >
+    <div
+      class="w-full max-w-sm md:max-w-full overflow-hidden fade-in-element pb-2 flex text-center mx-auto justify-center"
     >
-      Next
-    </button>
-    <!-- No Results -->
-    <div v-if="totalPages == 0" class="flex flex-col fixed w-full h-full">
-      <span class="text-3xl absolute w-full top-[30%]">Sorry there are no results</span>
+      <button
+        class="max-w-[5rem] float-on-hover"
+        v-if="totalPages != 1"
+        @click="prevPage"
+      >
+        Prev
+      </button>
+      <span class="mt-4">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button
+        class="max-w-[5rem] float-on-hover"
+        v-if="totalPages != 1"
+        @click="nextPage()"
+      >
+        Next
+      </button>
+      <!-- No Results -->
     </div>
-  </div>
   </div>
 </template>
 

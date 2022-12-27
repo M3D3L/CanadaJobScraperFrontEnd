@@ -4,7 +4,7 @@
 
 <h2>Live Version</h2>
 
-<a href="https://dancing-naiad-895827.netlify.app/" target="_blank">View Live Version</a>
+<a href="https://charming-biscochitos-7f40df.netlify.app/" target="_blank">View Live Version</a>
 
 <h2>Requirements</h2>
 
