@@ -1,8 +1,9 @@
 <template>
     <MetaData />
+    <LoadingScreen />
     <BaseHeader ref="header" @search-results="updateSearch($event)" @reset="resetResults()" />
     <JobList :jobs="jobs" :currentPage="currentPage" @update-page="currentPage = $event" @set-observer="resetObservations()" />
-    <BaseFooter :date="date" />
+    <BaseFooter/>
 </template>
 
 <style lang="css">
@@ -43,7 +44,6 @@ body {
 button {
   @apply text-sm md:bg-red-500 group-hover:translate-y-[-0.5rem] transition-all duration-150 ease-in-out w-40 mx-auto font-bold text-coolgray-500 md:text-white md:shadow-md md:shadow-coolgray-500 mt-2 py-2 rounded-full;
 }
-
 </style>
 
 <script>
@@ -62,7 +62,6 @@ export default {
     return {
       jobs: [],
       search: "",
-      date: new Date().getFullYear(),
       currentPage: 1,
     };
   },
@@ -77,7 +76,6 @@ export default {
     let timeout;
 
     //ref body using vue ref
-
     window.addEventListener("scroll", () => {
       // Remove the "header-opacity-100" class from the header
       header.classList.remove("header-opacity-100");

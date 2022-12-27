@@ -8,7 +8,7 @@
         </span>
       </a>
 
-      <div class="flex md:space-x-4 pr-8 md:pr-0">
+      <div class="flex md:space-x-4">
         <input
           @input="emitSearch($event.target.value)"
           v-model="search"

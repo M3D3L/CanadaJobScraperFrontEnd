@@ -11,11 +11,11 @@
 
 <script>
 export default {
-  props: {
-    date: {
-      type: Number,
-      required: true,
-    },
-  },
+ name: "BaseFooter",
+ data() {
+   return {
+    date: new Date().getFullYear()
+   };
+ },
 };
 </script>
