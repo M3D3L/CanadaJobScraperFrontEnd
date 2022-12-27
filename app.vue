@@ -1,7 +1,7 @@
 <template>
     <MetaData />
     <BaseHeader ref="header" @search-results="updateSearch($event)" @reset="resetResults()" />
-    <JobList :jobs="jobs" />
+    <JobList :jobs="jobs" :currentPage="currentPage" @update-page="currentPage = $event" @set-observer="resetObservations()" />
     <BaseFooter :date="date" />
 </template>
 
@@ -62,7 +62,7 @@ export default {
       jobs: [],
       search: "",
       date: new Date().getFullYear(),
-      footer: false
+      currentPage: 1,
     };
   },
   beforeMount() {
@@ -96,7 +96,7 @@ export default {
 
     setTimeout(() => {
       this.scrollToTop();
-    }, 1250);
+    }, 500);
   },
   methods: {
     //Resets the scroll position to the top of the page
@@ -132,18 +132,22 @@ export default {
         }
       });
     },
-    resetResults() {
-      this.search = "";
-      //get the original data
-      this.jobs = jobsList;
+    resetObservations() {
       setTimeout(() => {
         this.setIntersectionObservers();
       }, 1000);
       setTimeout(() => {
         this.scrollToTop();
-      }, 1250);
+      }, 500);
+    },
+    resetResults() {
+      this.search = "";
+      //get the original data
+      this.jobs = jobsList;
+      this.resetObservations()
     },
     searchResults() {
+      this.currentPage = 1;
       this.jobs = jobsList.filter((job) => {
         return (
           job.jobTitle.toLowerCase().includes(this.search.toLowerCase()) ||

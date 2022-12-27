@@ -23,7 +23,7 @@
 
 <style lang="css" scoped>
 button {
-  @apply bg-red-500 hidden md:block w-24 text-white rounded-sm h-9 -mt-1 hover:translate-y-[-2px] hover:bg-red-600 transition-all duration-150 ease-in-out !important;
+  @apply bg-gray-800 hidden md:block w-24 text-white rounded-sm h-9 -mt-1 hover:translate-y-[-2px] hover:bg-white hover:text-coolgray-500 transition-all duration-150 ease-in-out !important;
 }
 
 header {

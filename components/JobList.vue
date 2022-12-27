@@ -1,6 +1,10 @@
 <template>
-  <ul class="fade-in pb-10">
-    <li v-for="(job, i) in jobs" class="group" :key="job.id">
+  <ul class="fade-in pb-[3.7rem]">
+    <li
+      v-for="(job, i) in jobs.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
+      class="group"
+      :key="job.id"
+    >
       <a class="w-full h-full overflow-hidden" :href="job.jobUrl" target="_blank">
         <div class="absolute bottom-4">
           <span class="text-5xl bottom-4 relative z-0">
@@ -8,7 +12,7 @@
             <span
               class="text-sm w-12 text-white left-2 top-[1.6rem] font-semibold absolute z-10"
             >
-              {{ i + 1 }}
+              {{ i + 1 + 100 * (currentPage - 1) }}
             </span>
           </span>
         </div>
@@ -31,6 +35,15 @@
       </a>
     </li>
   </ul>
+
+  <!-- Pagination Controls -->
+  <div class="w-full flex justify-center pb-32 text-center">
+    <button v-if="totalPages != 1" @click="prevPage">Prev</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button v-if="totalPages != 1" @click="nextPage()">
+      Next
+    </button>
+  </div>
 </template>
 
 <style lang="css" scoped>
@@ -63,11 +76,52 @@ li {
 
 <script>
 export default {
+  name: "JobList",
+  data() {
+    return {
+      pageSize: 100,
+    };
+  },
+  methods: {
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.updatePage(this.currentPage + 1);
+      } else {
+        this.updatePage(1);
+      }
+      this.setObserver();
+    },
+    prevPage() {
+      if (this.currentPage === 1) {
+        this.updatePage(this.totalPages);
+      } else {
+        this.updatePage(this.currentPage - 1);
+      }
+      this.setObserver();
+    },
+    updatePage(page) {
+      this.$emit("update-page", page);
+      this.setObserver();
+    },
+    setObserver() {
+      this.$emit("set-observer");
+    },
+  },
   props: {
     jobs: {
       type: Array,
       required: true,
     },
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.jobs.length / this.pageSize);
+    },
   },
 };
 </script>
+-
