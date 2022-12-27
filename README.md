@@ -4,7 +4,7 @@
 
 <h2>Live Version</h2>
 
-<a href="https://shiny-pika-766c56.netlify.app" target="_blank">View Live Version</a>
+<a href="https://dancing-naiad-895827.netlify.app/" target="_blank">View Live Version</a>
 
 <h2>Requirements</h2>
 
