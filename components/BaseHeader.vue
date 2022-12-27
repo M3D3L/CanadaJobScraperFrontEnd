@@ -1,9 +1,11 @@
 <template>
     <header
-      class="header-opacity-100"
+      class="header-opacity-100 overflow-hidden"
     >
       <a href="/">
-        <span class="text-4xl top-4 absolute">🍁</span>
+        <span class="text-3xl">
+          🇨🇦 Jobs
+        </span>
       </a>
 
       <div class="flex md:space-x-4 pr-8 md:pr-0">
@@ -23,7 +25,7 @@
 
 <style lang="css" scoped>
 button {
-  @apply bg-gray-800 hidden md:block w-24 text-white rounded-sm h-9 -mt-1 hover:translate-y-[-2px] hover:bg-white hover:text-coolgray-500 transition-all duration-150 ease-in-out !important;
+  @apply hidden md:block w-24 text-white rounded-sm h-9 -mt-1 hover:translate-y-[-2px] hover:bg-white hover:text-coolgray-500 transition-all duration-150 ease-in-out !important;
 }
 
 header {

@@ -1,16 +1,17 @@
 <template>
-  <ul class="fade-in pb-[3.7rem]">
+  <ul class="fade-in">
+    <!-- Job List -->
     <li
       v-for="(job, i) in jobs.slice((currentPage - 1) * pageSize, currentPage * pageSize)"
-      class="group"
+      class="group fade-in-element"
       :key="job.id"
     >
       <a class="w-full h-full overflow-hidden" :href="job.jobUrl" target="_blank">
         <div class="absolute bottom-4">
-          <span class="text-5xl bottom-4 relative z-0">
+          <span class="text-5xl bottom-4 relative z-0 hidden md:flex">
             🍁
             <span
-              class="text-sm w-12 text-white left-2 top-[1.6rem] font-semibold absolute z-10"
+              class="text-sm w-12 ml-2 text-white top-[1.2rem] font-semibold absolute z-10"
             >
               {{ i + 1 + 100 * (currentPage - 1) }}
             </span>
@@ -22,12 +23,12 @@
         >
           {{ job.jobTitle }}
         </h2>
-        <h3 class="text-xl font-semibold px-2 line-clamp-1 mt-16">
+        <h3 class="text-xl font-semibold px-2 line-clamp-1 capitalize mt-16 break-all">
           {{ job.business }}
         </h3>
         <h4>{{ job.location }}</h4>
-        <h4 class="line-clamp-1 px-2">{{ job.salary }}</h4>
-        <h4 class="line-clamp-1 px-2">{{ job.howToApply }}</h4>
+        <h4 class="line-clamp-1 px-2 break-all capitalize">{{ job.salary }}</h4>
+        <h4 class="line-clamp-1 px-2 break-all capitalize">{{ job.howToApply }}</h4>
         <button class="md:mt-10 mt-6">
           View on <br class="md:hidden" />
           Job Bank
@@ -37,22 +38,33 @@
   </ul>
 
   <!-- Pagination Controls -->
-  <div class="w-full flex justify-center pb-32 text-center">
-    <button v-if="totalPages != 1" @click="prevPage">Prev</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button v-if="totalPages != 1" @click="nextPage()">
+  <div class="w-full bottom-12 bg-white bg-opacity-50 fixed md:relative">
+    <div class="w-full max-w-sm md:max-w-full overflow-hidden fade-in-element pb-2 flex text-center mx-auto justify-center">
+    <button class="max-w-[5rem] float-on-hover " 
+    v-if="totalPages != 1 && totalPages != 0" 
+    @click="prevPage">Prev</button>
+    <span class="mt-4" v-if="totalPages != 0">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="max-w-[5rem] float-on-hover" 
+    v-if="totalPages != 1 && totalPages != 0" 
+    @click="nextPage()"
+    >
       Next
     </button>
+    <!-- No Results -->
+    <div v-if="totalPages == 0" class="flex flex-col fixed w-full h-full">
+      <span class="text-3xl absolute w-full top-[30%]">Sorry there are no results</span>
+    </div>
+  </div>
   </div>
 </template>
 
 <style lang="css" scoped>
 ul {
-  @apply grid sm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 p-4 md:p-8 mt-20 lg:grid-cols-4;
+  @apply grid sm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:p-16 mt-20 lg:grid-cols-4;
 }
 
 li {
-  @apply w-full h-72 hover:bg-coolgray-500 hover:text-white border opacity-0 pt-2 border-coolgray-500 transition-all duration-150 shadow-md cursor-pointer shadow-coolgray-500 flex flex-col text-center;
+  @apply w-full h-72 hover:bg-coolgray-500 overflow-hidden hover:text-white border opacity-0 pt-2 border-coolgray-500 transition-all duration-150 shadow-md cursor-pointer shadow-coolgray-500 flex flex-col text-center;
 }
 
 .fade-in {
@@ -60,6 +72,10 @@ li {
   animation-fill-mode: both;
   opacity: 0;
   animation-name: fadeInUp;
+}
+
+.float-on-hover {
+  @apply transform transition-all duration-150 hover:translate-y-[-2px];
 }
 
 @keyframes fadeInUp {

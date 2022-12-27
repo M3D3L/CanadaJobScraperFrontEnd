@@ -18,6 +18,7 @@
 * {
   scrollbar-width: auto;
   scrollbar-color: #6b7280 #e5e7eb;
+  @apply overflow-x-hidden md:overflow-x-visible
 }
 
 /* Chrome, Edge, and Safari */
@@ -30,7 +31,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
+  background-color: #CC3333;
   border-radius: 10px;
   border: 3px solid #ffffff;
 }
@@ -70,9 +71,6 @@ export default {
   },
   mounted() {
 
-    //set the intersection observers for the fade in animation
-    this.setIntersectionObservers();
-    
     //sets the header fade in animation on scroll
     const header = document.querySelector("header");
     //header opacity control
@@ -94,9 +92,7 @@ export default {
       }, 100);
     });
 
-    setTimeout(() => {
-      this.scrollToTop();
-    }, 500);
+    this.resetObservations();
   },
   methods: {
     //Resets the scroll position to the top of the page
@@ -107,9 +103,7 @@ export default {
     },
     //get the data from the jobs.json file in the root directory
     getData() {
-      for (let i = 0; i < jobsList.length; i++) {
-        this.jobs.push(jobsList[i]);
-      }
+      this.jobs = jobsList;
     },
     setIntersectionObservers() {
       const fadeIn = (entries) => {
@@ -123,7 +117,7 @@ export default {
       };
 
       const observer = new IntersectionObserver(fadeIn);
-      const elements = document.querySelectorAll("li");
+      const elements = document.querySelectorAll(".fade-in-element");
 
       elements.forEach((element) => {
         //if the element is not already in the observer, add it
@@ -141,10 +135,11 @@ export default {
       }, 500);
     },
     resetResults() {
+      this.currentPage = 1;
       this.search = "";
       //get the original data
       this.jobs = jobsList;
-      this.resetObservations()
+      this.resetObservations();
     },
     searchResults() {
       this.currentPage = 1;
@@ -157,12 +152,7 @@ export default {
       });
 
       //timout to allow the DOM to update before setting the intersection observer and scrolling to the top
-      setTimeout(() => {
-        this.setIntersectionObservers();
-      }, 1000);
-      setTimeout(() => {
-        this.scrollToTop();
-      }, 1500);
+      this.resetObservations()
     },
     updateSearch(search) {
       this.search = search;
